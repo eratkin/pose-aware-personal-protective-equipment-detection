@@ -1,0 +1,36 @@
+models:
+  ppe_weights: models/ppe_best.pt
+  yolo_pose_weights: yolo11n-pose.pt
+
+classes:
+  hard_hat: ["hard_hat", "hardhat", "helmet"]
+  safety_vest: ["safety_vest", "vest", "reflective_vest"]
+
+inference:
+  ppe_confidence: 0.50
+  pose_confidence: 0.50
+  person_assignment_overlap: 0.20
+  device: "cpu"
+
+matching:
+  # Starting values, not recovered original values. Tune against a validation set.
+  helmet_iou_threshold: 0.10
+  vest_iou_threshold: 0.10
+  helmet_center_required: true
+  vest_center_required: true
+
+regions:
+  # Multipliers used to build expected PPE regions from pose landmarks.
+  head_width_scale: 1.65
+  head_height_scale: 1.55
+  torso_width_scale: 1.20
+  torso_height_scale: 1.10
+
+mediapipe:
+  min_detection_confidence: 0.50
+  min_tracking_confidence: 0.50
+
+output:
+  directory: "output"
+  save_json: true
+  save_annotated_image: true
